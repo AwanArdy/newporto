@@ -1,0 +1,151 @@
+---
+
+---
+
+<nav
+    class="fixed top-0 left-0 w-full backdrop-blur-lg bg-[#F8F8F8]/30 shadow-md z-50"
+>
+    <div
+        class="container mx-auto flex justify-between items-center px-4 py-4 relative"
+    >
+        <div class="text-2xl text-gray-800 font-bold">
+            <a href="#hero">Awan Ardy</a>
+        </div>
+
+        <!-- Hamburger -->
+        <button
+            class="sm:hidden flex flex-col justify-center items-center w-8 h-8 relative"
+            id="hamburger"
+        >
+            <span
+                class="line1 block w-full h-1 bg-gray-800 rounded transition-transform duration-300"
+            ></span>
+            <span
+                class="line2 block w-full h-1 bg-gray-800 rounded mt-1 transition-opacity duration-300"
+            ></span>
+            <span
+                class="line3 block w-full h-1 bg-gray-800 rounded mt-1 transition-transform duration-300"
+            ></span>
+        </button>
+
+        <ul
+            id="menu"
+            class="absolute top-16 right-0 translate-x-full backdrop-blur-lg bg-[#F8F8F8]/30 shadow-md rounded-lg w-2/3 sm:w-auto sm:static sm:translate-x-0 sm:shadow-none sm:flex sm:space-x-6 sm:items-center sm:bg-transparent font-medium transition-transform duration-300"
+        >
+            <li class="py-4 sm:py-0 text-center">
+                <a href="#about" class="hover:text-[#FF4B00] block">About</a>
+            </li>
+            <li class="py-4 sm:py-0 text-center">
+                <a href="#projects" class="hover:text-[#FF4B00] block"
+                    >Portofolio</a
+                >
+            </li>
+            <li class="py-4 sm:py-0 text-center">
+                <a href="#teknologi" class="hover:text-[#FF4B00] block"
+                    >Teknologi</a
+                >
+            </li>
+
+            <!-- Icons section -->
+            <li class="py-4 sm:py-0 text-center sm:ml-4">
+                <div class="flex justify-center sm:justify-start space-x-4">
+                    <a
+                        href="https://github.com/AwanArdy"
+                        target="_blank"
+                        class="text-gray-800 hover:text-[#FF4B00]"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 sm:h-7 sm:w-7"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M12 0C5.372 0 0 5.373 0 12c0 5.303 3.438 9.8 8.207 11.387.6.113.793-.26.793-.577v-2.244c-3.338.726-4.033-1.416-4.033-1.416-.546-1.388-1.333-1.757-1.333-1.757-1.09-.745.082-.73.082-.73 1.205.085 1.839 1.238 1.839 1.238 1.07 1.835 2.807 1.305 3.493.997.108-.775.418-1.306.76-1.606-2.665-.306-5.466-1.333-5.466-5.931 0-1.31.468-2.381 1.235-3.221-.124-.304-.535-1.526.117-3.176 0 0 1.007-.323 3.3 1.23.957-.266 1.984-.399 3.003-.404 1.019.005 2.047.138 3.006.404 2.29-1.553 3.294-1.23 3.294-1.23.653 1.65.242 2.872.118 3.176.77.84 1.232 1.911 1.232 3.221 0 4.61-2.807 5.623-5.479 5.921.429.37.814 1.102.814 2.221v3.293c0 .32.192.694.8.576C20.565 21.795 24 17.297 24 12c0-6.627-5.373-12-12-12z"
+                            ></path>
+                        </svg>
+                    </a>
+                    <a
+                        href="https://twitter.com/awannardyy"
+                        target="_blank"
+                        class="text-gray-800 hover:text-[#FF4B00]"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 sm:h-7 sm:w-7"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M24 4.557c-.883.392-1.833.656-2.828.775 1.017-.611 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.955-2.178-1.555-3.594-1.555-2.717 0-4.92 2.203-4.92 4.917 0 .386.044.762.127 1.124-4.087-.205-7.713-2.164-10.141-5.144-.424.729-.666 1.577-.666 2.482 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.247-2.23-.616v.062c0 2.388 1.698 4.382 3.946 4.833-.414.112-.849.171-1.296.171-.317 0-.626-.031-.927-.089.627 1.956 2.444 3.381 4.599 3.423-1.68 1.316-3.809 2.101-6.115 2.101-.398 0-.789-.023-1.175-.067 2.179 1.396 4.768 2.212 7.548 2.212 9.051 0 13.998-7.496 13.998-13.985 0-.213-.005-.425-.014-.636.962-.695 1.797-1.562 2.457-2.549z"
+                            ></path>
+                        </svg>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    body {
+        padding-top: 64px;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const hamburger = document.getElementById("hamburger");
+        const menu = document.getElementById("menu");
+        const line1 = hamburger.querySelector(".line1");
+        const line2 = hamburger.querySelector(".line2");
+        const line3 = hamburger.querySelector(".line3");
+
+        let menuOpen = false;
+
+        const toggleMenu = () => {
+            menuOpen = !menuOpen;
+
+            menu.classList.toggle("translate-x-0", menuOpen);
+            menu.classList.toggle("translate-x-full", !menuOpen);
+
+            line1.classList.toggle("rotate-45", menuOpen);
+            line1.classList.toggle("translate-y-[10px]", menuOpen);
+
+            line2.classList.toggle("opacity-0", menuOpen);
+
+            line3.classList.toggle("-rotate-45", menuOpen);
+            line3.classList.toggle("-translate-y-[10px]", menuOpen);
+        };
+
+        const closeMenu = () => {
+            menuOpen = false;
+            menu.classList.remove("translate-x-0");
+            menu.classList.add("translate-x-full");
+
+            line1.classList.remove("rotate-45", "translate-y-[10px]");
+            line2.classList.remove("opacity-0");
+            line3.classList.remove("-rotate-45", "-translate-y-[10px]");
+        };
+
+        hamburger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        });
+
+        document.addEventListener("click", (e) => {
+            const target = e.target as Node;
+
+            if (!hamburger.contains(target) && !menu.contains(target)) {
+                closeMenu();
+            }
+        });
+
+        menu.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+                closeMenu();
+            });
+            // Close on nav item click (for mobile)
+        });
+    });
+</script>

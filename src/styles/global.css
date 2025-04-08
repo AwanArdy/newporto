@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+.prose hr {
+    @apply hidden;
+}
+
+ol {
+    list-style-type: decimal;
+    margin-left: 1.5rem;
+}
+
+/* markdown.css */
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content p,
+.markdown-content ul,
+.markdown-content pre {
+    margin-bottom: 1rem;
+}
+
+.markdown-content pre {
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+}

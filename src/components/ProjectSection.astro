@@ -1,0 +1,64 @@
+---
+const cards = [
+    {
+        title: "E-Commerce CRUD",
+        description: "Penggunaan CRUD pada aplikasi E-Commerce",
+        image: "/img/crud.jpg",
+        slug: "projek-1",
+    },
+    {
+        title: "Projek B",
+        description: "Deskripsi B",
+        image: "https://res.cloudinary.com/dpnj5oclz/image/upload/f_auto,q_auto/v1/portofolio/ffrmnrdkyuw6us4yr7q5",
+        slug: "projek-b",
+    },
+    {
+        title: "Projek C",
+        description: "Deskripsi C",
+        image: "https://res.cloudinary.com/dpnj5oclz/image/upload/f_auto,q_auto/v1/portofolio/ffrmnrdkyuw6us4yr7q5",
+        slug: "projek-c",
+    },
+];
+---
+
+<section id="projects" class="bg-[#F8F8F8] py-8">
+    <div class="container mx-auto">
+        <div class="text-center">
+            <h2 class="text-4xl font-bold text-gray-800">Projek</h2>
+            <p class="text-gray-600">Projek yang telah saya buat.</p>
+        </div>
+
+        <div class="relative w-full flex justify-center items-center mt-5 mb-5">
+            <div class="flex flex-wrap justify-center gap-6 mt-10 mb-10">
+                {
+                    cards.map((card) => (
+                        <div class="rounded-md shadow-lg p-6 bg-white text-center w-96 flex flex-col justify-between items-center">
+                            <div>
+                                <img
+                                    src={card.image}
+                                    alt="Project"
+                                    class="w-80 h-48 object-cover rounded-md"
+                                />
+                                <h3 class="mt-3 mb-1 text-xl font-bold text-black">
+                                    {card.title}
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    {card.description}
+                                </p>
+                            </div>
+
+                            {card.slug && (
+                                <a
+                                    href={`/blog/${card.slug}`}
+                                    class="mt-4 inline-block bg-[#FF4B00] text-white px-4 py-2 rounded-md text-sm transition"
+                                >
+                                    Lihat Detail Proyek
+                                </a>
+                            )}
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,128 @@
+---
+title: "Studi Kasus: CRUD di Aplikasi E-Commerce"
+description: "Implementasi CRUD pada sistem e-commerce"
+date: "2025-04-09"
+---
+
+## Pendahuluan
+
+Dalam aplikasi e-commerce, fitur CRUD (Create, Read, Update, Delete) adalah fondasi utama untuk mengelola berbagai entitas seperti produk, pengguna dan pesanan. Studi kasus ini menjelaskan bagaimana saya membangun backend CRUD sederhana menggunakan Typescript, Bun dan PostgreSQL tanpa menggunakan ORM.
+
+---
+
+## Struktur Entitas
+
+Aplikasi ini memiliki tiga entitas utama:
+- **Users**: Menyimpan informasi pengguna seperti nama, email dan peran (admin/pelanggan)
+- **Products**: Menyimpan data produk seperti nama, harga, stok dan deskripsi
+- **Orders**: Menyimpan transaksi pembelian oleh user
+
+---
+
+## Create (C)
+
+Untuk membuat data baru, saya menggunakan endpoint POST seperti:
+
+- `POST /products` - Menambahkan produk baru ke database
+
+Contoh implementasi:
+```ts
+app.post('/products', async (req, res) => {
+  const { name, price, stock } = await req.json();
+  await db.query('INSERT INTO products (name, price, stock) VALUES ($1, $2, $3)', [name, price, stock]);
+  return res.send({ message: 'Produk berhasil ditambahkan' });
+});
+```
+
+Validasi dilakukan manual sebelum query SQL dijalankan, untuk memastikan integritas data tetap terjaga.
+
+---
+
+## READ (R)
+
+Endpoint GET digunakan untuk membaca data, baik seluruh produk maupun satu produk berdasarkan ID:
+- `GET /products` - Mengambil seluruh produk
+- `GET /products/:id` - Mengambil detail satu produk
+
+Contoh implementasi:
+```ts
+app.get('/products/:id', async (req, res) => {
+    const { id } = req.params;
+    const result = await db.query('SELECT * FROM products WHERE id = $1', [id]);
+    return res.send(result.rows[0]);
+});
+```
+
+---
+
+## Update (U)
+
+Update data dilakukan melalui endpoint PUT:
+- `PUT /products/:id` - Memperbarui data produk berdasarkan ID
+
+Proses update hanya mengubah kolom yang dikirim oleh client:
+```ts
+app.put('/products/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, price, stock } = await req.json();
+  await db.query('UPDATE products SET name = $1, price = $2, stock = $3 WHERE id = $4', [name, price, stock, id]);
+  return res.send({ message: 'Produk berhasil diperbarui' });
+});
+```
+
+---
+
+## Delete (D)
+
+Menghapus produk menggunakan endpoint DELETE:
+- `DELETE /products/:id` - Menghapus satu produk dari database
+
+Contoh implementasi:
+```ts
+app.delete('/products/:id', async (req, res) => {
+  const { id } = req.params;
+  await db.query('DELETE FROM products WHERE id = $1', [id]);
+  return res.send({ message: 'Produk berhasil dihapus' });
+});
+```
+
+---
+
+## Tantangan dan Solusi
+1. Tanpa ORM
+Tanpa ORM seperti Prisma atau Sequelize, semua query ditulis manual. Hal ini memberikan kontrol penuh terhadap performa dan struktur query, terutama saat mengoptimalkan join atau indeks
+
+2. Validasi input
+Menggunakan library seperti Zod atau menulis validasi manual untuk memastikan tidak ada data kosong atau invalid yang masuk ke database
+
+3. Pengelolaan error
+Error dari database atau validasi harus ditangani secara eksplisit dan dikembalikan ke client dalam format JSON agar mudah digunakan di frontend
+
+---
+
+## Alasan tidak menggunakan ORM
+
+ORM seperti Prisma atau Sequelize memang menawarkan kemudahan, namun pada proyek besar (terutama di backend yang berfokus pada performa), penggunaan ORM sering kali menyebabkan bottleneck dan membuat debuggin lebih kompleks. Beberapa alasan menghindari ORM bahkan dalam proyek besar:
+1. **Kontrol penuh atas SQL**
+   Dengan menulis SQL secara eksplisit, developer bisa tahu persis apa yang dikirim ke database. Tidak ada query tersembunyi atau optimasi internal yang tidak bisa dikendalikan.
+
+2. Optimasi performa
+ORM sering membuat query tidak efisien, terutama saat melakukan join atau nested relations. Penulisan query manual memungkinkan tuning performa secara granular (misalnya penggunaan `EXPLAIN ANALYZE`)
+
+3. Skalabilitas
+Aplikasi besar sering membutuhkan query kompleks dan indexing yang sangat spesifik. ORM tidak fleksibel dalam hal ini.
+
+4. Kemudahan debugging
+Error dari SQL biasanya lebih jelas dibanding error dari ORM yang membungkus error database dengan error internal yang tidak informatif.
+
+5. Ukuran dependency dan build time
+Beberapa ORM modern seperti Prisma sangat berat dan memperlama waktu build. Ini sangat berpengaruh di runtime seperti Bun atau Deno yang mengutamakan kecepatan.
+
+6. Kemampuan kolaboratif
+SQL adalah bahasa universal bagi backend engineer. Dengan tidak menggunakan ORM, tim bisa dengan cepat membaca, mereview dan menguji query tanpa bergantung pada abstraksi library
+
+---
+
+## Kesimpulan
+
+Menghindari ORM bukan berarti menolak kemudahan, tetapi memilih efisiensi dan kontrol. Di proyek besar sekalipun, jika kamu memiliki dokumentasi, konvensi koding dan validasi yang baik, penggunaan raw SQL justru membuat backend lebih stabil dan scalable dalam jangka panjang.

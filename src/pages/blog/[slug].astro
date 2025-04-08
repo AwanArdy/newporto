@@ -1,0 +1,100 @@
+---
+import {
+    getCollection,
+    getEntryBySlug,
+    type CollectionEntry,
+} from "astro:content";
+import "../../styles/global.css";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    return posts.map((post: CollectionEntry<"blog">) => ({
+        params: { slug: post.slug },
+        props: { slug: post.slug },
+    }));
+}
+
+const { slug } = Astro.props;
+const entry = await getEntryBySlug("blog", slug);
+const { Content } = await entry!.render();
+const { data } = entry!;
+---
+
+<html lang="id" class="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{data.title}</title>
+        <script>
+            // Fungsi untuk menerapkan warna
+            function applyTheme(theme) {
+                const body = document.body;
+                if (!body) return;
+                body.style.backgroundColor =
+                    theme === "dark" ? "black" : "white";
+                body.style.color = theme === "dark" ? "white" : "black";
+            }
+
+            // Fungsi toggle tema
+            function toggleTheme() {
+                const current = document.documentElement.className;
+                const next = current === "dark" ? "light" : "dark";
+                document.documentElement.className = next;
+                localStorage.setItem("theme", next);
+                applyTheme(next);
+            }
+
+            // Inisialisasi saat halaman dibuka
+            window.onload = () => {
+                const rawTheme = localStorage.getItem("theme");
+                const theme = rawTheme === "dark" ? "dark" : "light";
+                document.documentElement.className = theme;
+                applyTheme(theme);
+
+                // Tambahkan event listener ke tombol toggle
+                const toggleButton = document.getElementById("theme-toggle");
+                if (toggleButton) {
+                    toggleButton.addEventListener("click", toggleTheme);
+                }
+            };
+        </script>
+    </head>
+    <body class="transition-colors duration-300">
+        <!-- Tombol Toggle -->
+        <button
+            id="theme-toggle"
+            style="
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                padding: 0.5rem 1rem;
+                background: none;
+                border: 2px solid currentColor;
+                border-radius: 6px;
+                cursor: pointer;
+                z-index: 100;
+            "
+        >
+            🌗
+        </button>
+
+        <main
+            class="w-full max-w-6xl px-6 sm:px-12 lg:px-24 xl:px-32 py-10 mx-auto"
+        >
+            <h1 class="text-4xl font-bold mb-2">{data.title}</h1>
+            <p class="text-sm text-zinc-500 mb-6">{data.description}</p>
+
+            <article
+                class="[&>h2]:text-2xl [&>h2]:font-semibold [&>h2]:mt-8 [&>h2]:mb-3
+                     [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:mt-6 [&>h3]:mb-2
+                     [&>p]:mb-4 [&>p]:text-justify
+                     [&>pre]:bg-zinc-800 [&>pre]:text-white [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:mb-6
+                     [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-4
+                     [&>code]:bg-zinc-800 [&>code]:text-white [&>code]:px-1 [&>code]:rounded
+                     [&>hr]:my-8 [&>hr]:border-zinc-700"
+            >
+                <Content />
+            </article>
+        </main>
+    </body>
+</html>
