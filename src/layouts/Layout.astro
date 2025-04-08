@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { SpeedInsights } from "@vercel/speed-insights/vue";
 ---
 
 <!doctype html>
@@ -18,6 +19,7 @@ import "../styles/global.css";
         />
     </head>
     <body class="font-jakarta">
+        <SpeedInsights />
         <slot />
     </body>
 </html>
