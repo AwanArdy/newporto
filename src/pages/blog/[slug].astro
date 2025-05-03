@@ -26,7 +26,6 @@ const { data } = entry!;
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{data.title}</title>
         <script>
-            // Fungsi untuk menerapkan warna
             function applyTheme(theme) {
                 const body = document.body;
                 if (!body) return;
@@ -35,7 +34,6 @@ const { data } = entry!;
                 body.style.color = theme === "dark" ? "white" : "black";
             }
 
-            // Fungsi toggle tema
             function toggleTheme() {
                 const current = document.documentElement.className;
                 const next = current === "dark" ? "light" : "dark";
@@ -44,14 +42,12 @@ const { data } = entry!;
                 applyTheme(next);
             }
 
-            // Inisialisasi saat halaman dibuka
             window.onload = () => {
                 const rawTheme = localStorage.getItem("theme");
                 const theme = rawTheme === "dark" ? "dark" : "light";
                 document.documentElement.className = theme;
                 applyTheme(theme);
 
-                // Tambahkan event listener ke tombol toggle
                 const toggleButton = document.getElementById("theme-toggle");
                 if (toggleButton) {
                     toggleButton.addEventListener("click", toggleTheme);
@@ -60,7 +56,6 @@ const { data } = entry!;
         </script>
     </head>
     <body class="transition-colors duration-300">
-        <!-- Tombol Toggle -->
         <button
             id="theme-toggle"
             style="
@@ -91,7 +86,8 @@ const { data } = entry!;
                      [&>pre]:bg-zinc-800 [&>pre]:text-white [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:mb-6
                      [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-4
                      [&>code]:bg-zinc-800 [&>code]:text-white [&>code]:px-1 [&>code]:rounded
-                     [&>hr]:my-8 [&>hr]:border-zinc-700"
+                     [&>hr]:my-8 [&>hr]:border-zinc-700
+                     [&>img]:rounded-lg [&>img]:my-6 [&>img]:mx-auto [&>img]:max-w-[600px] [&>img]:w-full [&>img]:h-auto"
             >
                 <Content />
             </article>

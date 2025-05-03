@@ -1,0 +1,71 @@
+---
+import "../styles/global.css";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+const posts = await getCollection("blog");
+
+const blogs = posts.map((post: CollectionEntry<"blog">) => ({
+    title: post.data.title,
+    description: post.data.description,
+    image: post.data.image,
+    slug: post.slug,
+    category: post.data.category,
+    hidden: post.data.hidden,
+}));
+---
+
+<section id="blogs" class="bg-[#F8F8F8] py-8 min-h-screen">
+    <div class="container mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">Daftar Blog</h1>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-6">
+            {
+                blogs.map((blog) => (
+                    <div
+                        class={`rounded-md shadow-lg p-6 bg-white text-center w-80 flex flex-col justify-between items-center transition ${blog.hidden ? "hidden hidden-blog" : ""}`}
+                    >
+                        <div>
+                            {blog.image ? (
+                                <img
+                                    src={blog.image}
+                                    alt={blog.title}
+                                    class="w-72 h-40 object-cover rounded-md"
+                                />
+                            ) : (
+                                <div class="w-72 h-40 flex items-center justify-center bg-gray-200 rounded-md">
+                                    <span class="text-gray-500 text-sm">
+                                        No Image
+                                    </span>
+                                </div>
+                            )}
+                            <h2 class="mt-3 mb-1 text-xl font-bold text-black">
+                                {blog.title}
+                            </h2>
+                            <p class="text-sm text-gray-600">
+                                {blog.description}
+                            </p>
+                        </div>
+
+                        <a
+                            href={`/blog/${blog.slug}`}
+                            class="mt-4 inline-block bg-[#FF4B00] text-white px-4 py-2 rounded-md text-sm transition"
+                        >
+                            Baca Selengkapnya
+                        </a>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<script is:inline>
+    window.addEventListener("keydown", (e) => {
+        if (e.key === ".") {
+            const hiddenBlogs = document.querySelectorAll(".hidden-blog");
+            hiddenBlogs.forEach((el) => el.classList.remove("hidden"));
+        }
+    });
+</script>

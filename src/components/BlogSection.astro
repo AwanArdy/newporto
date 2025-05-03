@@ -1,10 +1,10 @@
 ---
 const cards = [
     {
-        title: "Projek A",
-        description: "Deskripsi A",
-        image: "https://res.cloudinary.com/dpnj5oclz/image/upload/f_auto,q_auto/v1/portofolio/ffrmnrdkyuw6us4yr7q5",
-        slug: "projek-a",
+        title: "E-Commerce CRUD",
+        description: "Penggunaan CRUD pada aplikasi E-Commerce",
+        image: "/img/crud.jpg",
+        slug: "projek-1",
     },
     {
         title: "Projek B",
@@ -24,11 +24,13 @@ const cards = [
 <section id="projects" class="bg-[#F8F8F8] py-8">
     <div class="container mx-auto">
         <div class="text-center">
-            <h2 class="text-4xl font-bold text-gray-800">Projek</h2>
-            <p class="text-gray-600">Projek yang telah saya buat.</p>
+            <h2 class="text-4xl font-bold text-gray-800">Blog</h2>
+            <p class="text-gray-600">Saya juga membuat beberapa blog</p>
         </div>
 
-        <div class="relative w-full flex justify-center items-center mt-5 mb-5">
+        <div
+            class="relative w-full flex flex-col justify-center items-center mt-5 mb-5"
+        >
             <div class="flex flex-wrap justify-center gap-6 mt-10 mb-10">
                 {
                     cards.map((card) => (
@@ -52,13 +54,20 @@ const cards = [
                                     href={`/blog/${card.slug}`}
                                     class="mt-4 inline-block bg-[#FF4B00] text-white px-4 py-2 rounded-md text-sm transition"
                                 >
-                                    Lihat Detail Proyek
+                                    Lihat Blog
                                 </a>
                             )}
                         </div>
                     ))
                 }
             </div>
+
+            <a
+                href="/blog"
+                class="bg-[#FF4B00] text-white px-6 py-3 rounded-md text-sm font-semibold hover:bg-orange-600 transition"
+            >
+                View More
+            </a>
         </div>
     </div>
 </section>
