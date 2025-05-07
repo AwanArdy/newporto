@@ -1,9 +1,17 @@
+<style>
+    .ti-cursor {
+        font-weight: normal;
+    }
+</style>
+
 <section
     id="hero"
     class="h-screen bg-[#F8F8F8] flex flex-col justify-center items-center text-center px-4 sm:px-6 lg:px-16"
 >
-    <h1 class="text-5xl md:text-7xl font-extrabold text-[#FF4B00] mb-4">
-        Awan Ardy
+    <h1
+        id="typing-target"
+        class="text-5xl md:text-7xl font-extrabold text-[#FF4B00] mb-4"
+    >
     </h1>
     <p class="text-xl md:text-2xl font-semibold text-gray-600">
         Junior Backend Developer
@@ -12,3 +20,38 @@
         "ngidol tiap saat, ngoding kalau ingat"
     </p>
 </section>
+
+<script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        new TypeIt("#typing-target", {
+            speed: 120,
+            cursorChar: "|",
+            waitUntilVisible: true,
+        })
+            .type("Aan Ardy")
+            .pause(500)
+            .move(-7)
+            .type("s")
+            .pause(200)
+            .delete(1)
+            .pause(100)
+            .type("d")
+            .pause(100)
+            .delete(1)
+            .pause(100)
+            .type("q")
+            .pause(100)
+            .delete(1)
+            .pause(100)
+            .type("e")
+            .pause(100)
+            .delete(1)
+            .pause(100)
+            .type("w")
+            .pause(50)
+            .move(null, { to: "END" })
+            .go();
+    });
+</script>
